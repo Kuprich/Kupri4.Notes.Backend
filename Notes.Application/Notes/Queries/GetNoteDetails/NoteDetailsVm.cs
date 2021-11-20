@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Notes.Application.Common.Mappings;
+using Notes.Domain;
+using System;
 
-namespace Notes.Domain
+namespace Notes.Application.Notes.Queries.GetNoteDetails
 {
-    public class Note
+    public class NoteDetailsVm : IMapWith<Note>
     {
-        public Guid UserId { get; set; }
         public Guid Id { get; set; }
         public string Title { get; set; }
         public string Details { get; set; }
