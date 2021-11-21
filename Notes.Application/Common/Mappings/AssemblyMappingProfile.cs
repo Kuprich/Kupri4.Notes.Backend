@@ -9,13 +9,13 @@ namespace Notes.Application.Common.Mappings
     {
         public AssemblyMappingProfile(Assembly assembly) =>
             ApplyMappingsFromAssembly(assembly);
-        
+
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {
-            var types = assembly.GetExportedTypes()
+            var types = assembly.GetTypes()
                 .Where(t => t.GetInterfaces()
-                    .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapWith<>)))
+                .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapWith<>)))
                 .ToList();
 
             foreach (var type in types)
@@ -23,7 +23,7 @@ namespace Notes.Application.Common.Mappings
                 var instance = Activator.CreateInstance(type);
                 var methodInfo = type.GetMethod("Mapping");
 
-                methodInfo.Invoke(instance, new object[] { this });
+                methodInfo?.Invoke(instance, new object[] { this });
             }
         }
     }
