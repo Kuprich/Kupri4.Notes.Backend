@@ -12,8 +12,9 @@ using System;
 using System.Threading.Tasks;
 
 namespace Notes.WebApi.Controllers
-{
-    [Route("api/[controller]")]
+{   
+    [ApiVersionNeutral]
+    [Route("api/{version:ApiVersion}/[controller]")]
     [Authorize]
     public class NoteController : BaseController
     {
