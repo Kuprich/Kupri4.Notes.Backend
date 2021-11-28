@@ -53,6 +53,7 @@ namespace Notes.Tests.Notes.Commands
 
             var noteId = NotesContextFactory.NotesA[2].Id;
             var userId = NotesContextFactory.UserBId;
+            var userA = NotesContextFactory.UserAId;
 
             var handler = new UpdateNoteCommandHandler(Context);
             var request = new UpdateNoteCommand()
@@ -64,8 +65,6 @@ namespace Notes.Tests.Notes.Commands
             };
 
             // Act
-            await handler.Handle(request, CancellationToken.None);
-
             // Assert
             await Assert.ThrowsAsync<NotFoundException>(async () => 
                 await handler.Handle(request, CancellationToken.None));

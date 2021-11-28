@@ -11,23 +11,26 @@ namespace Notes.Tests.Common
         public static Guid UserAId = Guid.NewGuid();
         public static Guid UserBId = Guid.NewGuid();
 
-        public static Note[] NotesA = Enumerable.Range(1, 5).Select(i => new Note
+        public static int UserANotesCount = 5;
+        public static int UserBNotesCount = 5;
+
+        public static Note[] NotesA = Enumerable.Range(1, UserANotesCount).Select(i => new Note
         {
             CreationDate = DateTime.Today,
             Id = Guid.NewGuid(),
-            Details = $"Details{i}",
+            Details = $"DetailsA{i}",
             EditDate = null,
-            Title = $"title{i}",
+            Title = $"titleA{i}",
             UserId = UserAId
         }).ToArray();
 
-        public static Note[] NotesB = Enumerable.Range(1, 5).Select(i => new Note
+        public static Note[] NotesB = Enumerable.Range(1, UserBNotesCount).Select(i => new Note
         {
             CreationDate = DateTime.Today,
             Id = Guid.NewGuid(),
-            Details = $"Details{i}",
+            Details = $"DetailsB{i}",
             EditDate = null,
-            Title = $"title{i}",
+            Title = $"titleB{i}",
             UserId = UserBId
         }).ToArray();
 
@@ -42,6 +45,7 @@ namespace Notes.Tests.Common
 
             context.Notes.AddRangeAsync(NotesA);
             context.Notes.AddRangeAsync(NotesB);
+            context.SaveChangesAsync();
 
             return context;
 

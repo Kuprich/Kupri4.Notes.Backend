@@ -29,12 +29,13 @@ namespace Notes.Tests.Notes.Commands
 
             //Act
             var noteId = await handler.Handle(request, CancellationToken.None);
+            var note = await Context.Notes.SingleOrDefaultAsync(note =>
+                note.Id == noteId &&
+                note.Title == noteTitle &&
+                note.Details == note.Details);
 
             // Assert
-            Assert.NotNull(await Context.Notes.SingleOrDefaultAsync(note =>
-                note.Id == noteId && 
-                note.Title == noteTitle && 
-                note.Details == note.Details));
+            Assert.NotNull(note);
 
         }
     }
